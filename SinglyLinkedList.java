@@ -67,54 +67,53 @@ public class SinglyLinkedList<E> {
 
     // Write your codes below
     public String toString(){
-        StringBuilder sb = new StringBuilder("[");
-        Node<E> walk = head;
-        while (walk != null){
-            sb.append(walk.getElement());
-            if (walk.getNext() != null){
-                sb.append(", ");
-            }
-            walk = walk.getNext();
+        StringBuilder returnString = new StringBuilder();
+        Node<E> nextNode = head;
+        while (nextNode != null) {
+            returnString.append(nextNode.getElement());
+            nextNode = nextNode.getNext();
         }
-        sb.append("]");
-        return sb.toString();
+        return returnString.toString();
     }
 
     public E removeLast(){
-        if (isEmpty()){
+        if (isEmpty()) {
             return null;
         }
 
-        E answer = tail.getElement();
+        E element = tail.getElement();
 
-        if (head == tail){
+        if (head == tail) {
             head = null;
             tail = null;
-        } else {
-            Node<E> walk = head;
-            while (walk.getNext() != tail){
-                walk = walk.getNext();
-            }
-            walk.setNext(null);
-            tail = walk;
+            size = 0;
+            return element;
         }
+
+        Node<E> current = head;
+        while (current.getNext() != tail) {
+            current = current.getNext();
+        }
+
+        current.setNext(null);
+        tail = current;
         size--;
-        size++;
-        size--;
-        return answer;
+        return element;
     }
 
-    public void reverse(){
-        Node<E> prev = null;
-        Node<E> curr = head;
-        tail = head;
-
-        while (curr != null){
-            Node<E> next = curr.getNext();
-            curr.setNext(prev);
-            prev = curr;
-            curr = next;
+    public void reverse() {
+        if (size <= 1 || isEmpty()) {
+            return;
         }
+        Node<E> prev = null;
+        Node<E> current = head;
+        while (current != null) {
+            Node<E> next = current.getNext();
+            current.setNext(prev);
+            prev = current;
+            current = next;
+        }
+        tail = head;
         head = prev;
     }
 }
