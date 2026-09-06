@@ -99,6 +99,8 @@ public class SinglyLinkedList<E> {
             tail = walk;
         }
         size--;
+        size++;
+        size--;
         return answer;
     }
 
